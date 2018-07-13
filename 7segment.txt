@@ -1,0 +1,194 @@
+module test_bench;
+reg A, B, CI, S;
+fa g(A, B, CI, S, s, co);
+initial
+	begin
+	A = 1'B0; B = 1'B0; CI = 1'B0; S = 1'B0;
+	#50;
+	A = 1'B0; B = 1'B0; CI = 1'B1; S = 1'B1;
+	#50;
+	A = 1'B0; B = 1'B1; CI = 1'B0; S = 1'B0;
+	#50;
+	A = 1'B0; B = 1'B1; CI = 1'B1; S = 1'B1;
+	#50;
+	A = 1'B1; B = 1'B0; CI = 1'B0; S = 1'B0;
+	#50;
+	A = 1'B1; B = 1'B0; CI = 1'B1; S = 1'B1;
+	#50;
+	A = 1'B1; B = 1'B1; CI = 1'B0; S = 1'B0;
+	#50;
+	A = 1'B1; B = 1'B1; CI = 1'B1; S = 1'B1;
+	#50;
+
+	$finish;
+	end
+endmodule 
+
+module test_bench2;
+reg A3, A2, A1, A0, B3, B2, B1, B0, S;
+circuit g(A3, A2, A1, A0, B3, B2, B1, B0, S, S3, S2, S1, S0, C4);
+initial
+	begin
+	S = 1'B0;
+	A3 = 1'B0; A2 = 1'B0; A1 = 1'B0; A0 = 1'B0;
+	B3 = 1'B0; B2 = 1'B1; B1 = 1'B0; B0 = 1'B1;
+	#100;
+
+	A3 = 1'B0; A2 = 1'B1; A1 = 1'B0; A0 = 1'B0;
+	B3 = 1'B0; B2 = 1'B1; B1 = 1'B1; B0 = 1'B0;
+	#100;
+
+	A3 = 1'B1; A2 = 1'B1; A1 = 1'B1; A0 = 1'B1;
+	B3 = 1'B1; B2 = 1'B0; B1 = 1'B1; B0 = 1'B1;
+	#100
+
+	A3 = 1'B1; A2 = 1'B0; A1 = 1'B0; A0 = 1'B0;
+	B3 = 1'B1; B2 = 1'B0; B1 = 1'B0; B0 = 1'B0;
+	#100
+
+	$finish;
+	end
+endmodule 
+
+module test_bench3;
+reg [1:0] A, B;
+reg S, S0, S1;
+alu g(A, B, S, S0, S1, O3, O2, O1, O0);
+initial
+	begin
+	S = 1'B0;
+	S0 = 1'b0;
+	S1 = 1'b0;
+	A = 2'b11; B = 2'b11;
+	#100;
+
+	S0 = 1'b1;
+	S1 = 1'b0;
+	A = 2'b11; B = 2'b11;
+	#100;
+
+	S0 = 1'b0;
+	S1 = 1'b1;
+	A = 2'b11; B = 2'b11;
+	#100
+
+	S0 = 1'b1;
+	S1 = 1'b1;
+	A = 2'b11; B = 2'b11;
+	#100
+
+	$finish;
+	end
+endmodule 
+
+module fa(A, B, CI, s, co);
+
+	input A, B, CI;
+	output s, co;
+	wire x,y,z;
+
+	xor #10 g1(s, A, B,CI);
+	and #5 g3(x, B, CI);
+	and #5 g4(z, CI, A);
+	and #5 g5(y, B, A);
+	or  #5 g6(co,x,y,z);
+
+endmodule
+
+
+module circuit(A3, A2, A1, A0, B3, B2, B1, B0, S, S3, S2, S1, S0, C4);
+
+	input A3, A2, A1, A0, B3, B2, B1, B0, S;
+	output S3, S2, S1, S0, C4;
+	wire C3, C2, C1, D1, D2, D3, D0;
+	
+	xor #10 g1(D0, B0, S);
+	xor #10 g2(D1, B1, S);
+	xor #10 g3(D2, B2, S);
+	xor #10 g4(D3, B3, S);
+
+	fa a(A0, D0, S, S0, C1);
+	fa b(A1, D1, C1, S1, C2);
+	fa c(A2, D2, C2, S2, C3);
+	fa d(A3, D3, C3, S3, C4);
+
+endmodule 
+
+module mux(S1, S0, I0, I1, I2, I3, O3, O2, O1, O0);
+
+	input S1, S0;
+	input [3:0] I1, I2, I3, I0;
+	output O3, O2, O1, O0;
+	wire [3:0] C0, C1, C2, C3;
+	
+	not g1(S1N, S1);
+	not g2(S0N, S0);
+	and g3(C0[0], S1N, S0N, I0[0]);
+	and g4(C1[0], S1N, S0, I1[0]);
+	and g5(C2[0], S1, S0N, I2[0]);
+	and g6(C3[0], S1, S0, I3[0]);
+	or g7(O0, C0[0], C1[0], C2[0], C3[0]);
+	
+	and g3a1(C0[1], S1N, S0N, I0[1]);
+	and g4234(C1[1], S1N, S0, I1[1]);
+	and g55(C2[1], S1, S0N, I2[1]);
+	and g634(C3[1], S1, S0, I3[1]);
+	or g745(O1, C0[1], C1[1], C2[1], C3[1]);
+
+	and g365(C0[2], S1N, S0N, I0[2]);
+	and g3214(C1[2], S1N, S0, I1[2]);
+	and g135(C2[2], S1, S0N, I2[2]);
+	and g623(C3[2], S1, S0, I3[2]);
+	or g722(O2, C0[2], C1[2], C2[2], C3[2]);
+
+	and g31(C0[3], S1N, S0N, I0[3]);
+	and ge4(C1[3], S1N, S0, I1[3]);
+	and gwe5(C2[3], S1, S0N, I2[3]);
+	and gds6(C3[3], S1, S0, I3[3]);
+	or g237(O3, C0[3], C1[3], C2[3], C3[3]);
+
+endmodule 
+
+module nande(A1, A0, B1, B0, O);
+
+	input A1, A0, B1, B0;
+	output [1:0] O;
+
+	nand g1(O[1], A1, B1);
+	nand G0(O[0], A0, B0);
+
+endmodule 
+
+module multiply(A1, A0, B1, B0, O3, O2, O1, O0);
+	
+	input A1, A0, B1, B0;
+	output O3, O2, O1, O0;
+	wire C1, C2, C3, C4, h1, h2, h;
+	
+	not gef(h2, h1); 
+	and g456(h, h1, h2);
+
+	and g1(O0, B0, A0);
+	and g2(C1, A1, B0);
+	and g3(C2, A0, B1);
+	fa f(C1, C2, h, O1, C4);
+	and g4(C3, B1, A1);
+	fa f1(C3, h, C4, O2, O3);
+
+endmodule
+
+module alu(A, B, S, S0, S1, O3, O2, O1, O0);
+	
+	input [1:0] A, B;
+	input  S0, S1, S;
+	output O3, O2, O1, O0;
+	wire [3:0] f, c4;
+	wire [3:0] mu;
+	wire [1:0] na;
+
+	nande n(A[1], A[0], B[1], B[0], na);
+	circuit faa(0, 0, A[1], A[0], 0, 0, B[1], B[0], S, f[3], f[2], f[1], f[0], c4);
+	multiply mult(A[1], A[0], B[1], B[0], mu[3], mu[2], mu[1], mu[0]);
+	mux m(S0, S1, mu, f, na, A, O3, O2, O1, O0);
+
+endmodule 
