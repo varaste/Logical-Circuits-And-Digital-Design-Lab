@@ -1,0 +1,12 @@
+
+module adder (A, B, Cin, Sout, Co);
+input A, B, Cin;
+output Co, Sout;
+wire e1, e2, e3, e4;
+xor #10 g0(e4, Cin, B);
+xor #10 g1(Sout, A, e4, Cin);
+and #5 g2(e1, A, Cin);
+and #5 g3(e2, A, e4);
+and #5 g4(e3, e4, Cin);
+or #5 g5(Co, e1, e2, e3);
+endmodule 

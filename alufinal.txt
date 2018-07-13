@@ -1,0 +1,87 @@
+
+module adder_sub(a,b,cin,cinF,cout,s);
+input a,b,cin,cinF;
+output cout,s;
+wire aa;
+xor g1(aa,b,cin);
+xor g2(s,a,aa,cinF);
+assign cout = (a&aa) | (a&cinF) | (aa&cinF);
+endmodule
+
+module adder2bit(a, b , cin2, cout1, sout0, sout1);
+input [1:0] a;
+input [1:0] b;
+input cin2;
+wire  cout[1:0];
+output  sout0, sout1, cout1;
+adder_sub f1(a[0],b[0],cin2,cin2,cout[0],sout0);
+adder_sub f2(a[1],b[1],cin2,cout[0],cout[1],sout1);
+assign cout1 = cout[1];
+endmodule
+
+module multiply (a, b, res);
+input [1:0] a;
+input [1:0] b ;
+output [3:0] res;
+assign res[0] = a[0] & b[0];
+wire temp;
+adder_sub f3(b[0] & a[1], b[1] & a[0],0 ,0, temp, res[1]);
+adder_sub f4(temp, b[1] & a[1], 0, 0, res[3], res[2]);
+endmodule
+
+module nand2bit(a,b,nandout);
+input [1:0] a;
+input [1:0] b;
+output [3:0] nandout;
+assign nandout[0] = !(a[0] & b[0]);
+assign nandout[1] = !(a[1] & b[1]);
+assign nandout[2] = 0;
+assign nandout[3] = 0;
+endmodule
+
+module aluu(A, B, cin, s, Z);
+input [1:0] A;
+input [1:0] B;
+input cin;
+input [1:0] s;
+output [3:0] Z;
+wire [3:0] resmulty;
+wire [3:0] ressum;
+wire  [3:0] resnand;
+multiply f5(A,B,resmulty);
+adder2bit f6(A,B, cin , ressum[2], ressum[0], ressum[1]);
+nand2bit f7 (A, B, resnand);
+assign Z[0] = !s[0] & !s[1] & resmulty[0] | s[0] & !s[1] & ressum[0] | !s[0] & s[1] & resnand[0] | s[0] & s[1] & A[0];
+assign Z[1] = !s[0] & !s[1] & resmulty[1] | s[0] & !s[1] & ressum[1] | !s[0] & s[1] & resnand[1] | s[0] & s[1] & A[1];
+assign Z[2] = !s[0] & !s[1] & resmulty[2] | s[0] & !s[1] & ressum[2] | !s[0] & s[1] & resnand[2];
+assign Z[3] = !s[0] & !s[1] & resmulty[3] | s[0] & !s[1] & ressum[3] | !s[0] & s[1] & resnand[3];
+endmodule
+
+module bcd2seven_seg(a,b,s,cin,SEG_SEL,SEG_DATA);
+input [1:0]a;
+input [1:0]b;
+input cin;
+input [1:0] s;
+output [4:0]SEG_SEL;
+output [7:0]SEG_DATA;
+wire [3:0] max_out;
+reg [7:0]SEG_DATA;
+aluu f8(a,b,cin,s,max_out);
+always @(max_out)
+begin
+case(max_out)
+0:SEG_DATA = 8'b00111111;
+1:SEG_DATA = 8'b00000110;
+2:SEG_DATA = 8'b01011011;
+3:SEG_DATA = 8'b01001111;
+4:SEG_DATA = 8'b01100110;
+5:SEG_DATA = 8'b01101101;
+6:SEG_DATA = 8'b01111101;
+7:SEG_DATA = 8'b00000111;
+8:SEG_DATA = 8'b01111111;
+9:SEG_DATA = 8'b01101111;
+
+endcase
+end
+assign SEG_SEL=5'b00001;
+endmodule

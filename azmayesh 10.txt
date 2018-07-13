@@ -1,0 +1,76 @@
+module tb;
+reg a , b , c , d , clk;
+wire y , z;
+main gholi(a , b , c , d , clk , y , z);
+initial
+	begin
+		a = 1'b0 ; b = 1'b1 ; c = 1'b1 ; d = 1'b0 ; clk = 1'b0;
+		#40
+		a = 1'b0 ; b = 1'b1 ; c = 1'b0 ; d = 1'b0 ; clk = 1'b1;
+		#40
+		a = 1'b0 ; b = 1'b1 ; c = 1'b0 ; d = 1'b0 ; clk = 1'b0;
+		#40
+		a = 1'b1 ; b = 1'b1 ; c = 1'b1 ; d = 1'b0 ; clk = 1'b1;
+		#40
+		a = 1'b1 ; b = 1'b1 ; c = 1'b1 ; d = 1'b0 ; clk = 1'b0;
+		#40
+		a = 1'b1 ; b = 1'b0 ; c = 1'b0 ; d = 1'b1 ; clk = 1'b1;
+		#40
+		a = 1'b1 ; b = 1'b0 ; c = 1'b0 ; d = 1'b1 ; clk = 1'b0;
+		#40
+		a = 1'b0 ; b = 1'b1 ; c = 1'b1 ; d = 1'b0 ; clk = 1'b1;
+		#40
+		a = 1'b0 ; b = 1'b1 ; c = 1'b1 ; d = 1'b0 ; clk = 1'b0;
+		#40
+		a = 1'b0 ; b = 1'b1 ; c = 1'b1 ; d = 1'b0 ; clk = 1'b1;
+		#40
+		a = 1'b0 ; b = 1'b1 ; c = 1'b1 ; d = 1'b0 ; clk = 1'b0;
+		#40
+		a = 1'b0 ; b = 1'b1 ; c = 1'b0 ; d = 1'b0 ; clk = 1'b1;
+		#40
+		a = 1'b0 ; b = 1'b1 ; c = 1'b0 ; d = 1'b0 ; clk = 1'b0;
+		#40
+		a = 1'b0 ; b = 1'b1 ; c = 1'b0 ; d = 1'b0 ; clk = 1'b1;
+		#40
+		a = 1'b0 ; b = 1'b1 ; c = 1'b0 ; d = 1'b0 ; clk = 1'b0;
+		#40
+		a = 1'b0 ; b = 1'b1 ; c = 1'b0 ; d = 1'b0 ; clk = 1'b1;
+		#40
+		a = 1'b0 ; b = 1'b1 ; c = 1'b0 ; d = 1'b0 ; clk = 1'b0;
+		#40
+		a = 1'b0 ; b = 1'b1 ; c = 1'b0 ; d = 1'b0 ; clk = 1'b1;
+		#40 $finish;
+	end
+endmodule
+
+
+module Dff(D , clk , Q , nQ);
+	input D , clk;
+	output Q , nQ;
+	reg Q;
+	always @ (negedge clk)
+		begin #20
+		Q<=D;
+		end
+	not g1(nQ,Q);
+endmodule
+
+module main(a , b , c , d , clk , y , z);
+	input a , b ,c ,d ,clk;
+	output y , z;
+	wire W1 , W2 , W3 , w4 , w5, w6 , w7 , w8 , w9 , w10 , w11 , w12 , w13;
+	and #(10) g1(w4 , a , c);
+	and #(10) g2(w5 , b ,d);
+	or #(10) g3(W1 , w4 , w5);
+	Dff f1(W1 , clk , y , w6);
+	and #(10) g4(w7 , y , d);
+	and #(10) g5(w8 , a , c);
+	nand #(10) g6(W2 , w7 , w8);
+	Dff f2(W2 , clk , W3 , w10);
+	or #(10) g7(w11 , W3 ,  c);
+	or #(10) g8(w12 , w6 , b);
+	and #(10) g9(w13 , w12 , w11);
+	not #(10) g10(z , w13);
+endmodule
+	
+	
