@@ -1,0 +1,30 @@
+m255
+K3
+13
+cModel Technology
+Z0 dC:\modeltech64_10.1c\examples
+T_opt
+V[PR=Q73>V44RoKEHlGXQH3
+04 4 4 work gray fast 0
+=1-f0795965b348-5a18f4a8-2e4-a30
+o-quiet -auto_acc_if_foreign -work aaa
+n@_opt
+OL;O;10.1c;51
+vgray
+IQUnMS92_>JjC^HJ=MITN31
+VLIYiEYg`<mKGgF=EQ]8g<0
+Z1 dC:\modeltech64_10.1c\examples
+w1511584922
+8C:/modeltech64_10.1c/examples/code_Gray.v
+FC:/modeltech64_10.1c/examples/code_Gray.v
+L0 1
+OL;L;10.1c;51
+r1
+31
+o-work aaa -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF
+!i10b 1
+!s100 ;AIGS5Bn2CQ@FM=MlA[?81
+!s85 0
+!s108 1511584925.723000
+!s107 C:/modeltech64_10.1c/examples/code_Gray.v|
+!s90 -reportprogress|300|-work|aaa|-vopt|C:/modeltech64_10.1c/examples/code_Gray.v|

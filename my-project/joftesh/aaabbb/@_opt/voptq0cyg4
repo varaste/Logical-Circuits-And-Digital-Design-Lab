@@ -1,0 +1,30 @@
+m255
+K3
+13
+cModel Technology
+Z0 dC:\modeltech64_10.1c\examples
+T_opt
+V0UT^N?M^:Z`SXPGGhV4cG0
+04 10 4 work full_adder fast 0
+=1-f0795965b348-5a18f66b-18a-ae0
+o-quiet -auto_acc_if_foreign -work aaabbb
+n@_opt
+OL;O;10.1c;51
+vfull_adder
+I8>hY8Y[lAo<5LGnJ:HZai0
+V][6=kek0PT@IVjUldKbWC0
+Z1 dC:\modeltech64_10.1c\examples
+w1511585363
+8C:/modeltech64_10.1c/examples/full_adder.v
+FC:/modeltech64_10.1c/examples/full_adder.v
+L0 1
+OL;L;10.1c;51
+r1
+31
+o-work aaabbb -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF
+!i10b 1
+!s100 L3aGGS5CQL9l]8?WXjCOG0
+!s85 0
+!s108 1511585372.448000
+!s107 C:/modeltech64_10.1c/examples/full_adder.v|
+!s90 -reportprogress|300|-work|aaabbb|-vopt|C:/modeltech64_10.1c/examples/full_adder.v|
